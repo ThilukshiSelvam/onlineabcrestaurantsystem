@@ -6,6 +6,8 @@ import com.system.abcrestaurant.request.SubmitUserQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserQueryServiceImpl implements UserQueryService {
 
@@ -21,4 +23,9 @@ public class UserQueryServiceImpl implements UserQueryService {
         UserQuery userQuery = new UserQuery(request.getUserId(), request.getSubject(), request.getMessage());
         return userQueryRepository.save(userQuery);
     }
-}
+
+    @Override
+    public List<UserQuery> getAllUserQueries() {
+        return userQueryRepository.findAll();
+        }
+    }

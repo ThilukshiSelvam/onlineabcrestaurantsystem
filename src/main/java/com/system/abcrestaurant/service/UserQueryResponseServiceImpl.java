@@ -51,4 +51,5 @@ public class UserQueryResponseServiceImpl implements UserQueryResponseService {
             throw new IllegalArgumentException("Invalid Query ID or Responder ID");
         }
     }
+
 }
