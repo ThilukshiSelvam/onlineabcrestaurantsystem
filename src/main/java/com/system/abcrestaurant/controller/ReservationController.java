@@ -65,4 +65,10 @@ public class ReservationController {
         List<Reservation> reservations = reservationService.getAllReservationsForUser(userId);
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
+
+    @GetMapping("/getAllReservations")
+    public ResponseEntity<List<Reservation>> getAllReservations() {
+        List<Reservation> reservations = reservationService.getAllReservations();
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
 }
