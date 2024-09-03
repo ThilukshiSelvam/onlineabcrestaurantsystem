@@ -19,4 +19,6 @@ public interface FacilityService {
 
     public List<Facility> getAllFacilities();
 
+    Facility getFacilityById(Long id);
+
 }

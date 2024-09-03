@@ -121,4 +121,31 @@ public class AdminFacilityController {
         }
     }
 
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<ApiResponse> getFacilityById(@PathVariable Long id) {
+        ApiResponse response = new ApiResponse();
+
+        // Validate the user's role
+        if (!SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+                .contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            response.setMessage("You do not have permission to perform this action");
+            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+        }
+
+        try {
+            Facility facility = facilityService.getFacilityById(id);
+            if (facility == null) {
+                response.setMessage("Facility not found");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
+            response.setMessage("Facility retrieved successfully");
+            response.setData(facility);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response.setMessage("Failed to retrieve facility");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }

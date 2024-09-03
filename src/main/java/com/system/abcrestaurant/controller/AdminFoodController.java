@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin/food")
 public class AdminFoodController {
@@ -142,5 +144,26 @@ public class AdminFoodController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Failed to update food"));
         }
     }
+
+
+    @GetMapping("/getallFood")
+    public ResponseEntity<?> getAllFood() {
+        try {
+            // Fetch all food items
+            List<Food> foodList = foodRepository.findAll();
+
+            // If no food items found, return a message
+            if (foodList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MessageResponse("No food items found"));
+            }
+
+            // Return the list of food items
+            return ResponseEntity.ok(foodList);
+        } catch (Exception e) {
+            // Handle exceptions and return an error message
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Failed to retrieve food items"));
+        }
+    }
+
 
 }
