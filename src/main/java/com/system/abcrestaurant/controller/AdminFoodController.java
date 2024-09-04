@@ -165,5 +165,22 @@ public class AdminFoodController {
         }
     }
 
+    @GetMapping("/getFoodById/{id}")
+    public ResponseEntity<?> getFoodById(@PathVariable Long id) {
+        try {
+            // Fetch the food item by ID
+            Food food = foodRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+
+            // Return the food item
+            return ResponseEntity.ok(food);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Failed to retrieve food item"));
+        }
+    }
+
+
 
 }
