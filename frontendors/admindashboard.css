@@ -294,11 +294,12 @@ button.btn:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
 table, th, td {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
 th, td {
@@ -313,6 +314,47 @@ th {
 td {
     vertical-align: top;
 }
+
+/* Style for the buttons in the table */
+table#restaurantTable button {
+    background-color: #007bff; /* Default button color */
+    color: #fff; /* Text color */
+    border: none; /* Remove default border */
+    padding: 8px 12px; /* Padding */
+    margin: 7px 4px; /* Space between buttons */
+    width: 80px;
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  }
+
+  /* Edit button */
+  table#restaurantTable button.edit-button {
+    background-color: #28a745; /* Green */
+  }
+
+  /* Delete button */
+  table#restaurantTable button.delete-button {
+    background-color: #dc3545; /* Red */
+  }
+
+  /* Toggle status button */
+  table#restaurantTable button.toggle-status-button {
+    background-color: #ffc107; /* Yellow */
+  }
+
+  /* Hover effect */
+  table#restaurantTable button:hover {
+    background-color: #0056b3; /* Darker shade */
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+
+  /* Active effect */
+  table#restaurantTable button:active {
+    background-color: #004494; /* Even darker shade */
+  }
+
 
 /* Edit Restaurant Popup Styles */
 #editRestaurantPopup {
