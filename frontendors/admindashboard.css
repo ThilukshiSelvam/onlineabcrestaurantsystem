@@ -1,0 +1,801 @@
+
+@font-face {
+    font-family: muli-regular;
+    src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-Regular.ttf);
+}
+
+@font-face {
+    font-family: muli-semibold;
+    src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: muli-bold;
+    src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-Bold.ttf);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: muli-regular;
+    color: #666;
+    font-size: 13px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 215px;
+    background-color: #2c3e50;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar button {
+    background-color: #34495e;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    transition: background-color 0.3s, padding-left 0.3s;
+}
+
+.sidebar button:hover {
+    background-color:peru;
+    padding-left: 25px;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.header h1 {
+    margin: 0;
+    font-family: muli-bold;
+    font-size: 28px;
+    color: #333;
+}
+
+.main-content {
+    flex: 1; /* Main content takes remaining space */
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.management-section {
+    margin-bottom: 40px;
+}
+
+.profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ae3c33;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 200px;
+    padding: 10px;
+}
+
+.profile-dropdown p {
+    margin: 0;
+    padding: 10px;
+    font-family: muli-semibold;
+    color: #333;
+}
+
+.profile-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    background-color: #ae3c33;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-dropdown button:hover {
+    background-color: #a22c1c;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button.btn {
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    background-color: #ae3c33;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #a22c1c;
+}
+
+.staff-list {
+    margin-top: 20px;
+}
+
+.staff-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-list th, .staff-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.staff-list th {
+    background-color: #f4f4f4;
+}
+
+.edit-btn, .delete-btn {
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.edit-btn {
+    background-color: #4caf50;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #e53935;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Management Sections */
+.management {
+    display: none;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-top: 17px;
+    display: flex;
+    align-items: center;
+}
+
+#searchRestaurantInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin-right: 10px;
+}
+
+#searchRestaurantBtn {
+    padding: 10px 20px;
+    background-color: #34495e; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 17px;
+}
+
+#searchRestaurantBtn:hover {
+    background-color:peru; /* Hover color */
+}
+
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+}
+
+td {
+    vertical-align: top;
+}
+
+/* Edit Restaurant Popup Styles */
+#editRestaurantPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+}
+
+#editRestaurantPopup h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+#editRestaurantPopup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+}
+
+#editRestaurantPopup .close-btn:hover {
+    color: #333;
+}
+
+#editRestaurantPopup form {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px; /* Adjust as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+}
+
+#editRestaurantPopup label {
+    margin: 5px 0 2px;
+    font-weight: bold;
+    color: #555;
+}
+
+#editRestaurantPopup input[type="text"],
+#editRestaurantPopup input[type="email"] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#editRestaurantPopup button {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#editRestaurantPopup button.update {
+    background-color: #28a745; /* Green for update button */
+}
+
+#editRestaurantPopup button.cancel {
+    background-color: #dc3545; /* Red for cancel button */
+}
+
+#editRestaurantPopup button:hover {
+    opacity: 0.8;
+}
+
+
+#createRestaurantFormContainer {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 600px;
+}
+
+#createRestaurantForm {
+    display: grid;
+    gap: 15px;
+}
+
+#createRestaurantForm label {
+    font-weight: bold;
+}
+
+#createRestaurantForm input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 550px;
+}
+
+#createRestaurantForm button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+
+#createRestaurantForm .update {
+    background-color:  #34495e;
+    color: white;
+    width: 200px;
+    margin-left: 165px;
+}
+
+#createRestaurantForm .update:hover {
+    background-color:#2c3e50;
+}
+
+#createRestaurantForm .cancel {
+    background-color:#a22c1c;
+    color: white;
+    width: 200px;
+    margin-left: 165px;
+}
+
+#createRestaurantForm .cancel:hover {
+    background-color: #c82333;
+}
+
+
+/* Add your styles here */
+
+#categoryManagement {
+    margin-top: 20px;
+}
+
+#categoryManagement form {
+    margin-bottom: 20px;
+}
+
+#categoryTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#categoryTable th, #categoryTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#categoryTable th {
+    background-color: #f4f4f4;
+}
+
+button {
+    margin: 5px;
+}
+
+input, select {
+    margin-bottom: 10px;
+    display: block;
+}
+
+
+
+
+/* Form and Table Styling */
+#dineinTablesSection {
+    margin-top: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+#dineinTablesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#dineinTablesTable th,
+#dineinTablesTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#dineinTablesTable th {
+    background-color: #f2f2f2;
+}
+
+/* Popup Form Styling */
+#updateDineinTablePopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#updateDineinTablePopup form {
+    display: flex;
+    flex-direction: column;
+}
+
+#cancelUpdateBtn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#cancelUpdateBtn:hover {
+    background-color: #c82333;
+}
+
+
+
+/* Offers Management Section */
+
+/*offers style*/
+.hidden {
+    display: none;
+}
+
+#manageOffersSection {
+    margin: 20px 0;
+}
+
+#offerForm,
+#updateOfferForm {
+    margin-bottom: 20px;
+}
+
+#offerForm label,
+#updateOfferForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#offerForm input,
+#offerForm textarea,
+#offerForm select,
+#updateOfferForm input,
+#updateOfferForm textarea,
+#updateOfferForm select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+#offerList {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#offerList th, #offerList td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#offerList th {
+    background-color: #f2f2f2;
+}
+
+#updateOfferPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+
+
+
+/* Facility Management Section */
+
+.facility-management-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.facility-management-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.facility-management-section .form-group {
+    margin-bottom: 15px;
+}
+
+.facility-management-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.facility-management-section input[type="text"],
+.facility-management-section select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.facility-management-section button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.facility-management-section button:hover {
+    background-color: #218838;
+}
+
+.facility-list {
+    margin-top: 30px;
+}
+
+.facility-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.facility-list th,
+.facility-list td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.facility-list th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.facility-list td .action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.facility-list td .action-buttons button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.facility-list td .action-buttons .update-btn {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.facility-list td .action-buttons .update-btn:hover {
+    background-color: #e0a800;
+}
+
+.facility-list td .action-buttons .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.facility-list td .action-buttons .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Popup Form */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.popup.active {
+    display: block;
+}
+
+.popup h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+.popup .form-group {
+    margin-bottom: 15px;
+}
+
+.popup input[type="text"],
+.popup select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup .popup-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.popup .popup-actions button {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup .popup-actions .save-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.popup .popup-actions .save-btn:hover {
+    background-color: #218838;
+}
+
+.popup .popup-actions .cancel-btn {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.popup .popup-actions .cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+

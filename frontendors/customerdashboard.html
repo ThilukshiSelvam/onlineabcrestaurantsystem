@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="customerdashboard.css">
+</head>
+<body>
+    <div class="sidebar">
+         <button id="MakeReservationsBtn">Make Reservations</button>
+        <button id="manageQueriesBtn">Manage User Queries</button>
+        <button id="viewMadeReservationsBtn">View Made Reservations</button>
+       
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>CUSTOMER DASHBOARD</h1>
+            <div class="profile">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt="Profile Icon">
+                <div class="profile-dropdown">
+                    <p id="customerUsername">Customer Username</p>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </div>
+        <div id="manageQueries" class="section">
+            <h2>View my Queries</h2>
+            </div>
+            <div id="viewMadeReservations" class="section">
+                <h2>My Reservations</h2>
+                </div>
+<!-- Make Reservations Section -->
+<div id="MakeReservations" class="section">
+    <h2>Make Reservations</h2>
+    <div id="restaurantCards" class="restaurant-cards"></div>
+</div>
+
+<!-- Reservation Form Modal -->
+<div id="reservationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3>Make a Reservation</h3>
+        <form id="reservationForm">
+            <input type="hidden" id="selectedRestaurantId">
+            <div class="form-group">
+                <label for="dineinTable">Select Table:</label>
+                <select id="dineinTable" name="dineinTable" required></select>
+            </div>
+            <div class="form-group">
+                <label for="reservationTime">Reservation Time:</label>
+                <input type="datetime-local" id="reservationTime" name="reservationTime" required>
+            </div>
+            <div class="form-group">
+                <label for="numberOfGuests">Number of Guests:</label>
+                <input type="number" id="numberOfGuests" name="numberOfGuests" required>
+            </div>
+            <div class="form-group">
+                <label for="specialRequests">Special Requests:</label>
+                <textarea id="specialRequests" name="specialRequests"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="VISA">VISA</option>
+                    <option value="MASTER CARD">MASTER CARD</option>
+                    <option value="PAYPAL">PAYPAL</option>
+                </select>
+            </div>
+            <button type="submit">Submit Reservation</button>
+        </form>
+    </div>
+</div>
+    </div>
+
+
+                <script src="customerdashboard.js"></script>
+            </body>
+            </html>

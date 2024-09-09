@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Restaurants</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/neutra-text-sc');
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            background-color: #222;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logo */
+        header .logo img {
+            max-width: 150px;
+        }
+
+        /* Section Title */
+        header .section-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            font-weight: bold;
+            white-space: nowrap;
+            font-family: 'Neutra Text SC', sans-serif;
+        }
+
+        /* Navigation */
+        header nav {
+            font-size: 18px;
+        }
+
+        header nav a {
+            position: relative;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            display: inline-block;
+            font-family: 'Neutra Text SC', sans-serif;
+        }
+
+        /* Underlines */
+        header nav a::before,
+        header nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #f1c40f;
+            transition: transform 0.3s ease;
+            transform: scaleX(0);
+        }
+
+        header nav a::before {
+            bottom: -4px;
+        }
+
+        header nav a::after {
+            bottom: -8px;
+        }
+
+        header nav a:hover {
+            color: #f1c40f;
+        }
+
+        header nav a:hover::before,
+        header nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Restaurants Section */
+        .restaurants-section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .restaurants-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Restaurant Card Styles */
+        .restaurant-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: auto;
+            overflow: hidden;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+
+        .restaurant-card:hover {
+            transform: scale(1.05);
+        }
+
+        .restaurant-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .restaurant-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .restaurant-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-description {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-cuisine {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .restaurant-status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .restaurant-address,
+        .restaurant-contact {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* Popup Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            width: 500px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background-color: #f1c40f;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #d4ac0d;
+        }
+
+        /* Close Button */
+        .close-modal {
+            background-color: red;
+            color: #fff;
+            padding: 5px 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+         /* Popup Styles */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .popup-content {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        width: 400px;
+        position: relative;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .popup-buttons {
+        margin-top: 20px;
+    }
+
+    .popup-buttons button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #222;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .popup-buttons button:hover {
+        background-color: #f1c40f;
+    }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="assets/images/Screenshot__577-removebg-preview.png" alt="Restaurant Logo">
+    </div>
+    <h1 class="section-title">Explore our finest Restaurants</h1>
+    <nav>
+        <a href="index.html">HOME</a>
+    </nav>
+</header>
+
+<section class="restaurants-section">
+    <div id="restaurants-container" class="restaurants-container">
+        <!-- Restaurant cards will be populated here -->
+    </div>
+</section>
+
+<!-- Popup Modal -->
+<div id="restaurant-popup" class="popup-overlay">
+    <div class="popup-content">
+        <span id="popup-close" class="popup-close">&times;</span>
+        <div id="popup-restaurant-info" class="popup-restaurant-info">
+            <!-- Restaurant details and buttons will be displayed here -->
+        </div>
+        <div class="popup-buttons">
+            <button id="view-offers-btn">View Offers</button>
+            <button id="view-foods-btn">View Foods</button>
+            <button id="view-facilities-btn">View Facilities</button>
+            <button id="view-gallery-btn">View Gallery</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const restaurantsContainer = document.getElementById('restaurants-container');
+
+    // Fetch restaurants from API
+    function fetchRestaurants() {
+        fetch('http://localhost:5786/api/restaurants/getAllRestaurants', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch restaurants');
+            }
+        })
+        .then(data => {
+            displayRestaurants(data);
+        })
+        .catch(error => {
+            console.error('Error fetching restaurants:', error);
+        });
+    }
+
+    // Function to display restaurants
+    function displayRestaurants(restaurants) {
+        restaurantsContainer.innerHTML = ''; // Clear any existing content
+
+        restaurants.forEach(restaurant => {
+            // Create restaurant card
+            const card = document.createElement('div');
+            card.classList.add('restaurant-card');
+
+            // Restaurant image (use the first image in the list or a placeholder if no images are available)
+            const image = restaurant.images.length > 0 ? restaurant.images[0] : 'placeholder.jpg';
+            const imgElement = document.createElement('img');
+            imgElement.src = image;
+            imgElement.alt = `${restaurant.name} Image`;
+            card.appendChild(imgElement);
+
+            // Restaurant info
+            const infoDiv = document.createElement('div');
+            infoDiv.classList.add('restaurant-info');
+
+            const nameElement = document.createElement('div');
+            nameElement.classList.add('restaurant-name');
+            nameElement.textContent = restaurant.name;
+            infoDiv.appendChild(nameElement);
+
+            const descriptionElement = document.createElement('div');
+            descriptionElement.classList.add('restaurant-description');
+            descriptionElement.textContent = restaurant.description || 'No description available';
+            infoDiv.appendChild(descriptionElement);
+
+            const cuisineElement = document.createElement('div');
+            cuisineElement.classList.add('restaurant-cuisine');
+            cuisineElement.textContent = `Cuisine: ${restaurant.cuisineType}`;
+            infoDiv.appendChild(cuisineElement);
+
+            // Restaurant status (open or closed)
+            const statusElement = document.createElement('div');
+            statusElement.classList.add('restaurant-status');
+            statusElement.textContent = restaurant.open ? 'Open' : 'Closed';
+            statusElement.style.color = restaurant.open ? 'green' : 'red';
+            infoDiv.appendChild(statusElement);
+
+            // Extracting and formatting Address
+            const address = restaurant.address;
+            const addressText = address
+                ? `${address.streetAddress}, ${address.city}, ${address.stateProvince}, ${address.postalCode}, ${address.country}`
+                : 'Address not available';
+
+            const addressElement = document.createElement('div');
+            addressElement.classList.add('restaurant-address');
+            addressElement.textContent = `Address: ${addressText}`;
+            infoDiv.appendChild(addressElement);
+
+            // Extracting and formatting Contact Information
+            const contactInfo = restaurant.contactInformation;
+            const contactText = contactInfo
+                ? `Email: ${contactInfo.email}, Mobile: ${contactInfo.mobile}, Twitter: ${contactInfo.twitter}, Instagram: ${contactInfo.instagram}`
+                : 'Contact info not available';
+
+            const contactElement = document.createElement('div');
+            contactElement.classList.add('restaurant-contact');
+            contactElement.textContent = `Contact: ${contactText}`;
+            infoDiv.appendChild(contactElement);
+
+            card.appendChild(infoDiv);
+            restaurantsContainer.appendChild(card);
+
+            // Add click event listener to show popup when restaurant card is clicked
+            card.addEventListener('click', () => {
+                showPopup(restaurant);
+            });
+
+
+
+
+        });
+    }
+
+    function showPopup(restaurant) {
+    const popupOverlay = document.getElementById('restaurant-popup');
+    const popupRestaurantInfo = document.getElementById('popup-restaurant-info');
+
+    // Clear previous popup content
+    popupRestaurantInfo.innerHTML = '';
+
+    // Populate popup with restaurant info
+    const nameElement = document.createElement('h2');
+    nameElement.textContent = restaurant.name;
+    popupRestaurantInfo.appendChild(nameElement);
+
+    const descriptionElement = document.createElement('p');
+    descriptionElement.textContent = restaurant.description || 'No description available';
+    popupRestaurantInfo.appendChild(descriptionElement);
+
+    // Show the popup
+    popupOverlay.style.display = 'flex';
+
+    // Handle buttons click
+    document.getElementById('view-offers-btn').onclick = function() {
+        fetchOffersForRestaurant(restaurant.id);
+    };
+
+    document.getElementById('view-foods-btn').onclick = function() {
+        fetchFoodsForRestaurant(restaurant.id); 
+    };
+
+    document.getElementById('view-facilities-btn').onclick = function() {
+        fetchFacilitiesForRestaurant(restaurant.id);
+    };
+
+    const galleryButton = document.getElementById('view-gallery-btn');
+        galleryButton.addEventListener('click', () => {
+            redirectToGallery(restaurant.id);
+        });
+
+        function redirectToGallery(restaurantId) {
+    // Store the selected restaurant ID in local storage
+    localStorage.setItem('selectedRestaurantId', restaurantId);
+
+    // Redirect to gallery.html
+    window.location.href = 'gallery.html';
+}
+    
+}
+
+function fetchOffersForRestaurant(restaurantId) {
+    fetch(`http://localhost:5786/api/admin/offers/restaurant/${restaurantId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to fetch offers');
+        }
+    })
+    .then(data => {
+        // Log the data to inspect its structure
+        console.log('Fetched data:', data);
+
+        // Check if data.offers is defined and is an array
+        if (Array.isArray(data.offers)) {
+            displayOffers(data.offers);
+        } else {
+            console.error('Offers data is not in the expected format:', data.offers);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching offers:', error);
+    });
+}
+
+// Function to display offers in the popup
+function displayOffers(offers) {
+    const popupRestaurantInfo = document.getElementById('popup-restaurant-info');
+    popupRestaurantInfo.innerHTML = '<h3>Offers:</h3>'; // Use '=' instead of '+=' to clear previous content
+
+    if (offers.length === 0) {
+        popupRestaurantInfo.innerHTML += '<p>No offers available</p>';
+    } else {
+        offers.forEach(offer => {
+            const offerDiv = document.createElement('div');
+            offerDiv.classList.add('offer');
+
+            const titleElement = document.createElement('h4');
+            titleElement.textContent = offer.title;
+            offerDiv.appendChild(titleElement);
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = offer.description;
+            offerDiv.appendChild(descriptionElement);
+
+            const discountElement = document.createElement('p');
+            discountElement.textContent = `Discount: ${offer.discountPercentage}%`;
+            offerDiv.appendChild(discountElement);
+
+            const datesElement = document.createElement('p');
+            datesElement.textContent = `Valid from: ${new Date(offer.startDate).toLocaleDateString()} to ${new Date(offer.endDate).toLocaleDateString()}`;
+            offerDiv.appendChild(datesElement);
+
+            popupRestaurantInfo.appendChild(offerDiv);
+        });
+    }
+}
+
+function fetchFoodsForRestaurant(restaurantId) {
+    fetch(`http://localhost:5786/api/food/restaurant/${restaurantId}/all`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else if (response.status === 204) {
+            throw new Error('No food items available');
+        } else {
+            throw new Error('Failed to fetch food items');
+        }
+    })
+    .then(data => {
+        // Log the data to inspect its structure
+        console.log('Fetched food data:', data);
+
+        // Check if data is an array of food items
+        if (Array.isArray(data)) {
+            displayFoods(data);
+        } else {
+            console.error('Food data is not in the expected format:', data);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching food items:', error);
+    });
+}
+
+// Function to display food items in the popup
+function displayFoods(foods) {
+    const popupRestaurantInfo = document.getElementById('popup-restaurant-info');
+    popupRestaurantInfo.innerHTML = '<h3>Food Items:</h3>'; // Clear previous content
+
+    if (foods.length === 0) {
+        popupRestaurantInfo.innerHTML += '<p>No food items available</p>';
+    } else {
+        foods.forEach(food => {
+            const foodDiv = document.createElement('div');
+            foodDiv.classList.add('food-item');
+
+            const nameElement = document.createElement('h4');
+            nameElement.textContent = food.name;
+            foodDiv.appendChild(nameElement);
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = food.description || 'No description available';
+            foodDiv.appendChild(descriptionElement);
+
+            const priceElement = document.createElement('p');
+            priceElement.textContent = `Price: ${food.price} $`;
+            foodDiv.appendChild(priceElement);
+
+            const vegetarianElement = document.createElement('p');
+            vegetarianElement.textContent = food.isVegetarian ? 'Vegetarian' : 'Non-Vegetarian';
+            foodDiv.appendChild(vegetarianElement);
+
+            popupRestaurantInfo.appendChild(foodDiv);
+        });
+    }
+}
+
+
+
+function fetchFacilitiesForRestaurant(restaurantId) {
+    fetch(`http://localhost:5786/api/facility/restaurant/${restaurantId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to fetch facilities');
+        }
+    })
+    .then(data => {
+        // Log the data to inspect its structure
+        console.log('Fetched data:', data);
+
+        // Check if data.data is defined and is an array
+        if (Array.isArray(data.data)) {
+            displayFacilities(data.data);
+        } else {
+            console.error('Facilities data is not in the expected format:', data.data);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching facilities:', error);
+    });
+}
+
+// Function to display facilities in the popup
+function displayFacilities(facilities) {
+    const popupRestaurantInfo = document.getElementById('popup-restaurant-info');
+    popupRestaurantInfo.innerHTML = '<h3>Facilities:</h3>'; // Use '=' instead of '+=' to clear previous content
+
+    if (facilities.length === 0) {
+        popupRestaurantInfo.innerHTML += '<p>No facilities available</p>';
+    } else {
+        facilities.forEach(facility => {
+            const facilityDiv = document.createElement('div');
+            facilityDiv.classList.add('facility');
+
+            const nameElement = document.createElement('h4');
+            nameElement.textContent = facility.name;
+            facilityDiv.appendChild(nameElement);
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = facility.description;
+            facilityDiv.appendChild(descriptionElement);
+
+            popupRestaurantInfo.appendChild(facilityDiv);
+        });
+    }
+}
+
+
+
+
+
+
+// Modify the existing click event for the View Foods button
+document.getElementById('view-foods-btn').onclick = function() {
+    fetchFoodsForRestaurant(currentRestaurant.id); // Make sure `currentRestaurant` is defined
+};
+
+
+
+    // Close popup when close button is clicked
+    document.getElementById('popup-close').addEventListener('click', function() {
+        document.getElementById('restaurant-popup').style.display = 'none';
+    });
+
+    // Initialize by fetching restaurants when the page loads
+    fetchRestaurants();
+});
+
+</script>
+</body>
+</html>

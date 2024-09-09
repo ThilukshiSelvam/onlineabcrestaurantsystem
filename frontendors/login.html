@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
+    <title>Login Form</title>
+    <style>
+        @font-face {
+            font-family: muli-regular;
+            src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-Regular.ttf)
+        }
+
+        @font-face {
+            font-family: muli-semibold;
+            src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-SemiBold.ttf)
+        }
+
+        @font-face {
+            font-family: muli-bold;
+            src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-Bold.ttf)
+        }
+
+        :root {
+
+/**
+ * COLORS
+ */
+
+--gold-crayola: hsl(38, 61%, 73%);
+--quick-silver: hsla(0, 0%, 65%, 1);
+--davys-grey: hsla(30, 3%, 34%, 1);
+--smoky-black-1: hsla(40, 12%, 5%, 1);
+--smoky-black-2: hsla(30, 8%, 5%, 1);
+--smoky-black-3: hsla(0, 3%, 7%, 1);
+--eerie-black-1: hsla(210, 4%, 9%, 1);
+--eerie-black-2: hsla(210, 4%, 11%, 1);
+--eerie-black-3: hsla(180, 2%, 8%, 1);
+--eerie-black-4: hsla(0, 0%, 13%, 1);
+--white: hsla(0, 0%, 100%, 1);
+--white-alpha-20: hsla(0, 0%, 100%, 0.2);
+--white-alpha-10: hsla(0, 0%, 100%, 0.1);
+--black: hsla(0, 0%, 0%, 1);
+--black-alpha-80: hsla(0, 0%, 0%, 0.8);
+--black-alpha-15: hsla(0, 0%, 0%, 0.15);
+
+/**
+ * GRADIENT COLOR
+ */
+
+--loading-text-gradient: linear-gradient(90deg, transparent 0% 16.66%, var(--smoky-black-3) 33.33% 50%,  transparent 66.66% 75%);
+--gradient-1: linear-gradient(to top,hsla(0, 0%, 0%, 0.9),hsla(0, 0%, 0%, 0.7),transparent);
+
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: muli-regular;
+            color: #666;
+            font-size: 13px;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        input, textarea, select, button {
+            font-family: muli-regular;
+            color: #333;
+            font-size: 13px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        :focus {
+            outline: none;
+        }
+
+        .header {
+            background-color: hsla(180, 2%, 8%, 1);
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: muli-semibold;
+        }
+
+        .header img {
+            height: 70px;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            margin: 0;
+            letter-spacing: 1px;
+            color: hsl(38, 61%, 73%);
+            margin-right: 130px;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+        }
+
+        .inner {
+            min-width: 400px;
+            max-width: 500px;
+            margin: auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        .inner h3 {
+            text-transform: uppercase;
+            font-size: 22px;
+            font-family: muli-bold;
+            text-align: center;
+            margin-bottom: 32px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        form {
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-wrapper label {
+            margin-bottom: 9px;
+            display: block;
+        }
+
+        .form-control {
+            border: 1px solid #ccc;
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 0 20px;
+            border-radius: 20px;
+            font-family: muli-bold;
+            background: 0 0;
+        }
+
+        .form-control:focus {
+            border: 1px solid #ae3c33;
+        }
+
+        button {
+    border: none;
+    width: 152px;
+    height: 40px;
+    margin: auto;
+    margin-top: 29px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: hsl(38, 61%, 73%);
+    font-size: 13px;
+    color: hsla(30, 8%, 5%, 1);
+    text-transform: uppercase;
+    font-family: muli-semibold;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: color 0.5s, background-color 0.5s; /* Added background-color transition */
+}
+
+button:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f11a09;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.5s ease-out;
+}
+
+button:hover:before {
+    transform: scaleX(1);
+    transition-timing-function: cubic-bezier(.52, 1.64, .37, .66);
+}
+
+button:hover {
+    color: #fff; /* Change text color on hover */
+    background-color: #e09c00; /* Optionally change the background color */
+}
+
+        .checkbox {
+            position: relative;
+        }
+
+        .checkbox label {
+            padding-left: 22px;
+            cursor: pointer;
+        }
+
+        .checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            height: 12px;
+            width: 13px;
+            border-radius: 2px;
+            background-color: #ebebeb;
+            border: 1px solid #ccc;
+            font-family: Material-Design-Iconic-Font;
+            color: #000;
+            font-size: 10px;
+            font-weight: bolder;
+        }
+
+        .checkmark:after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            content: '\f26b';
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="./assets/images/Screenshot__577-removebg-preview.png"  width="120" height="100"  alt="Restaurant Logo">
+        <h1>GET MORE FEATURES - ABC RESTAURANT</h1>
+    </div>
+    <div class="wrapper" style="background-image: url(https://colorlib.com/etc/regform/colorlib-regform-18/images/bg-registration-form-2.jpg);">
+        <div class="inner">
+            <form action="http://localhost:5786/auth/signin" method="POST" id="signinForm">
+                <h3>Login</h3>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username">
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="rememberMe"> Remember me
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <button type="submit">LOGIN</button>
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="registrationform.html">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let valid = true;
+            clearErrors();
+
+            if (username.value.trim() === "") {
+                showError(username, "Username is required.");
+                valid = false;
+            }
+
+            if (password.value.trim() === "") {
+                showError(password, "Password is required.");
+                valid = false;
+            }
+
+            if (valid) {
+                const loginData = {
+                    username: username.value.trim(),
+                    password: password.value.trim(),
+                };
+
+                fetch("http://localhost:5786/auth/signin", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(loginData),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.jwt) {
+                        // Store the JWT token in localStorage
+                        localStorage.setItem("jwtToken", data.jwt);
+
+                        let redirectUrl = "/dashboard";
+                        if (data.role === "ROLE_ADMIN") {
+                            redirectUrl = "admindashboard.html";
+                        } else if (data.role === "ROLE_STAFF") {
+                            redirectUrl = "staff-dashboard.html";
+                        } else if (data.role === "ROLE_CUSTOMER") {
+                            redirectUrl = "customerdashboard.html";
+                        }
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        alert(data.message || "Login failed");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                });
+            }
+        });
+
+        function showError(input, message) {
+            const parent = input.parentElement;
+            const error = document.createElement("small");
+            error.classList.add("error");
+            error.style.color = "red";
+            error.textContent = message;
+            parent.appendChild(error);
+        }
+
+        function clearErrors() {
+            const errors = document.querySelectorAll("small.error");
+            errors.forEach((error) => error.remove());
+        }
+    });
+    </script>
+</body>
+</html>

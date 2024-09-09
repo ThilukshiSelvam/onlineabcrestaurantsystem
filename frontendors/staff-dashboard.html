@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="staff-dashboard.css">
+</head>
+<body>
+    <div class="sidebar">
+        <button id="manageQueriesBtn">Manage User Queries</button>
+        <button id="viewReservationsBtn">View Reservations</button>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>STAFF DASHBOARD</h1>
+            <div class="profile">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt="Profile Icon">
+                <div class="profile-dropdown">
+                    <p id="staffUsername">Staff Username</p>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </div>
+        <div id="manageQueries" class="section">
+            <h2>Manage User Queries</h2>
+            <div id="queriesContainer">
+                <table id="queriesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                            <th>Submission Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="queriesTableBody">
+                        <!-- Rows will be inserted here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="viewReservations" class="section">
+            <h2>View Reservations</h2>
+            <div id="reservation-list">
+                <table id="reservation-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Restaurant</th>
+                            <th>User ID</th>
+                            <th>Table number and seats</th>
+                            <th>Reservation Time</th>
+                            <th>Number of Guests</th>
+                            <th>Special Requests</th>
+                            <th>Payment Status</th>
+                            <th>End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservation-table-body">
+                        <!-- Reservation rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    
+<!-- Modal for responding to a query -->
+<div id="responseModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Respond to Query</h2>
+        <form id="responseForm">
+            <label for="queryId">Query ID:</label>
+            <input type="text" id="queryId" name="queryId" readonly>
+
+            <label for="responderId">Responder ID:</label>
+            <input type="text" id="responderId" name="responderId" readonly>
+
+            <label for="responseText">Your Response:</label>
+            <textarea id="responseText" name="responseText" required></textarea>
+            
+            <button type="submit">Submit Response</button>
+        </form>
+    </div>
+</div>
+    </div>
+
+        
+<script>
+    const jwtToken = localStorage.getItem('jwtToken');
+    
+ function handleResponse(queryId) {
+        const responderId = localStorage.getItem('responderId'); // Assuming responder ID is stored in localStorage
+        document.getElementById('queryId').value = queryId;
+        document.getElementById('responderId').value = responderId; // Set the responder ID
+        document.getElementById('responseModal').style.display = 'block';
+    }
+
+    // Close the modal
+    function closeModal() {
+        document.getElementById('responseModal').style.display = 'none';
+    }
+
+    // Submit the response
+    document.getElementById('responseForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const queryId = document.getElementById('queryId').value;
+        const responderId = document.getElementById('responderId').value;
+        const responseText = document.getElementById('responseText').value;
+
+        const responseData = {
+            queryId: queryId,
+            responderId: responderId,
+            responseMessage: responseText
+        };
+
+        // Send the response to the backend
+        fetch('http://localhost:5786/api/query-responses', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            },
+            body: JSON.stringify(responseData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);  // Show success message
+            closeModal();  // Close the modal
+            // Optionally, refresh the query list here
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to submit response');
+        });
+    });
+
+    // Ensure the handleResponse function is defined globally
+    window.handleResponse = handleResponse;
+    window.closeModal = closeModal;
+</script>
+
+    <script src="staff-dashboard.js"></script>
+</body>
+</html>

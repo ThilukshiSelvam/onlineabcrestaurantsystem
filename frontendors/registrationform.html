@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+            font-family: muli-regular;
+            src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: muli-semibold;
+            src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-SemiBold.ttf);
+        }
+
+        @font-face {
+            font-family: muli-bold;
+            src: url(https://colorlib.com/etc/regform/colorlib-regform-18/fonts/muli/Muli-Bold.ttf);
+        }
+
+        :root {
+            --gold-crayola: hsl(38, 61%, 73%);
+            --quick-silver: hsla(0, 0%, 65%, 1);
+            --davys-grey: hsla(30, 3%, 34%, 1);
+            --smoky-black-1: hsla(40, 12%, 5%, 1);
+            --smoky-black-2: hsla(30, 8%, 5%, 1);
+            --smoky-black-3: hsla(0, 3%, 7%, 1);
+            --eerie-black-1: hsla(210, 4%, 9%, 1);
+            --eerie-black-2: hsla(210, 4%, 11%, 1);
+            --eerie-black-3: hsla(180, 2%, 8%, 1);
+            --eerie-black-4: hsla(0, 0%, 13%, 1);
+            --white: hsla(0, 0%, 100%, 1);
+            --white-alpha-20: hsla(0, 0%, 100%, 0.2);
+            --white-alpha-10: hsla(0, 0%, 100%, 0.1);
+            --black: hsla(0, 0%, 0%, 1);
+            --black-alpha-80: hsla(0, 0%, 0%, 0.8);
+            --black-alpha-15: hsla(0, 0%, 0%, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: muli-regular;
+            color: #666;
+            font-size: 13px;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        input, textarea, select, button {
+            font-family: muli-regular;
+            color: #333;
+            font-size: 13px;
+        }
+
+        p, h1, h2, h3, h4, h5, h6, ul {
+            margin: 0;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        ul {
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        :focus {
+            outline: none;
+        }
+
+        .header {
+            background-color: var(--eerie-black-2);
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: muli-semibold;
+        }
+
+        .header img {
+            height: 70px;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            margin: 0;
+            letter-spacing: 1px;
+            color: var(--gold-crayola);
+            margin-right: 130px;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .inner {
+            min-width: 400px;
+            max-width: 500px;
+            margin: auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        .inner h3 {
+            text-transform: uppercase;
+            font-size: 22px;
+            font-family: muli-bold;
+            text-align: center;
+            margin-bottom: 32px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        form {
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            margin-bottom: 17px;
+        }
+
+        .form-wrapper label {
+            margin-bottom: 9px;
+            display: block;
+        }
+
+        .form-control {
+            border: 1px solid #ccc;
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 0 20px;
+            border-radius: 20px;
+            font-family: muli-bold;
+            background: 0 0;
+        }
+
+        .form-control:focus {
+            border: 1px solid #ae3c33;
+        }
+
+        select {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            padding-left: 20px;
+        }
+
+        select option[value=""][disabled] {
+            display: none;
+        }
+
+        button {
+            border: none;
+            width: 152px;
+            height: 40px;
+            margin: auto;
+            margin-top: 29px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: var(--gold-crayola);
+            font-size: 13px;
+            color: var(--smoky-black-2);
+            text-transform: uppercase;
+            font-family: muli-semibold;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: color 0.5s, background-color 0.5s;
+        }
+
+        button:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f11a09;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 0.5s ease-out;
+        }
+
+        button:hover:before {
+            transform: scaleX(1);
+            transition-timing-function: cubic-bezier(.52, 1.64, .37, .66);
+        }
+
+        button:hover {
+            color: #fff;
+            background-color: #e09c00;
+        }
+
+        .checkbox {
+            position: relative;
+            margin-bottom: 17px;
+        }
+
+        .checkbox label {
+            padding-left: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            height: 12px;
+            width: 13px;
+            border-radius: 2px;
+            background-color: #ebebeb;
+            border: 1px solid #ccc;
+            font-family: Material-Design-Iconic-Font;
+            color: #000;
+            font-size: 10px;
+            font-weight: bolder;
+        }
+
+        .checkmark:after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            content: '\f26b';
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media(max-width: 991px) {
+            .inner {
+                min-width: 768px;
+            }
+        }
+
+        @media(max-width: 767px) {
+            .inner {
+                min-width: auto;
+                background: 0 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            form {
+                width: 100%;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="./assets/images/Screenshot__577-removebg-preview.png" width="120" height="100" alt="Restaurant Logo">
+        <h1>JOIN OUR COMMUNITY - ABC RESTAURANT</h1>
+    </div>
+    <div class="wrapper" style="background-image: url(https://colorlib.com/etc/regform/colorlib-regform-18/images/bg-registration-form-2.jpg);">
+        <div class="inner">
+            <form action="http://localhost:5786/auth/signup" method="POST" id="signupForm">
+                <h3>Register</h3>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
+                    </div>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="terms" id="terms" required>
+                        I accept the Terms of Use &amp; Privacy Policy.
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <button type="submit">SIGN UP</button>
+                <div class="signup-link">
+                    <p>Are you already a member of us? <a href="login.html">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("signupForm");
+            const username = document.getElementById("username");
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmPassword");
+            const terms = document.getElementById("terms");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                let valid = true;
+                clearErrors();
+
+                // Username validation
+                if (username.value.trim() === "") {
+                    showError(username, "Username is required.");
+                    valid = false;
+                }
+
+                // Email validation
+                if (email.value.trim() === "") {
+                    showError(email, "Email is required.");
+                    valid = false;
+                } else if (!validateEmail(email.value.trim())) {
+                    showError(email, "Please enter a valid email address.");
+                    valid = false;
+                }
+
+                // Password validation
+                if (password.value.trim() === "") {
+                    showError(password, "Password is required.");
+                    valid = false;
+                } 
+
+
+                // Confirm Password validation
+                if (confirmPassword.value.trim() === "") {
+                    showError(confirmPassword, "Please confirm your password.");
+                    valid = false;
+                } else if (password.value !== confirmPassword.value) {
+                    showError(confirmPassword, "Passwords do not match.");
+                    valid = false;
+                }
+
+                // Terms and Conditions validation
+                if (!terms.checked) {
+                    showError(terms, "You must accept the Terms of Use & Privacy Policy.");
+                    valid = false;
+                }
+
+                if (valid) {
+                    const formData = {
+                        username: username.value.trim(),
+                        email: email.value.trim(),
+                        password: password.value.trim(),
+                        role: "ROLE_CUSTOMER"  // Set a default role or modify based on your logic
+                    };
+
+                    // Send the data using fetch
+                    fetch("http://localhost:5786/auth/signup", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response from the backend
+                        if (data.message === "Registration successful") {
+                            alert("Registration successful!");
+                            window.location.href = "login.html";  // Redirect to login or another page
+                        } else {
+                            alert(data.message || "Registration failed");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("An error occurred. Please try again.");
+                    });
+                }
+            });
+
+            function showError(input, message) {
+                const parent = input.parentElement;
+                const error = document.createElement("small");
+                error.classList.add("error");
+                error.style.color = "red";
+                error.textContent = message;
+                parent.appendChild(error);
+            }
+
+            function clearErrors() {
+                const errors = document.querySelectorAll("small.error");
+                errors.forEach(error => error.remove());
+            }
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(String(email).toLowerCase());
+            }
+        });
+    </script>
+</body>
+</html>

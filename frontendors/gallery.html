@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Gallery</title>
+    <style>
+        /* Basic styles for the gallery */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .gallery-item {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Restaurant Gallery</h1>
+<div id="gallery-container" class="gallery-container">
+    <!-- Gallery images will be displayed here -->
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the selected restaurant ID from local storage
+    const restaurantId = localStorage.getItem('selectedRestaurantId');
+const jwtToken = localStorage.getItem('jwtToken');
+console.log(restaurantId, jwtToken);  // Ensure these values are not null
+
+
+    if (restaurantId) {
+        // Fetch the restaurant's gallery images based on the restaurantId
+        fetch(`http://localhost:5786/api/admin/gallery/restaurant/${restaurantId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the 'images' property exists and contains data
+            if (data && data.images && data.images.length > 0) {
+                displayGallery(data.images);  // Pass the nested images array
+            } else {
+                console.error('No images found for this restaurant.');
+                document.getElementById('gallery-container').innerHTML = '<p>No images available for this restaurant.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching gallery images:', error);
+        });
+    } else {
+        alert('No restaurant selected');
+    }
+
+    // Function to display gallery images
+    function displayGallery(images) {
+        const galleryContainer = document.getElementById('gallery-container');
+
+        if (images && images.length > 0) {
+            images.forEach(image => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+
+                const imgElement = document.createElement('img');
+                imgElement.src = image.url;  // Use image.url from the array
+                imgElement.alt = 'Restaurant Image';
+
+                galleryItem.appendChild(imgElement);
+                galleryContainer.appendChild(galleryItem);
+            });
+        } else {
+            galleryContainer.innerHTML = '<p>No images available for this restaurant.</p>';
+        }
+    }
+
+    
+});
+
+
+</script>
+
+</body>
+</html>
