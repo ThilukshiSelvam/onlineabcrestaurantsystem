@@ -16,7 +16,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Neutra Text SC', sans-serif;
             background-color: #f4f4f4;
             color: #333;
         }
@@ -170,108 +170,133 @@
             margin-top: 5px;
         }
 
-        /* Popup Modal Styles */
-        .modal {
-            display: none;
+        /* Popup Overlay */
+        .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 200;
+            z-index: 999;
         }
 
-        .modal-content {
+        .popup-content {
             background-color: #fff;
+            border-radius: 12px;
             padding: 40px;
-            border-radius: 10px;
-            width: 500px;
             text-align: center;
+            width: 620px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            /* Add scrollbar when content exceeds max height */
+            max-height: 80vh;  /* Adjust this value as needed */
+            overflow-y: auto;
         }
 
-        .modal-content h2 {
-            margin-bottom: 20px;
-        }
 
-        .modal-content button {
-            background-color: #f1c40f;
-            color: #fff;
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
+        /* Close Button */
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #555;
             cursor: pointer;
+            transition: color 0.3s;
         }
 
-        .modal-content button:hover {
+        .popup-close:hover {
+            color: #f1c40f;
+        }
+
+        /* Popup Buttons */
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .popup-buttons button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #34495e;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Neutra Text SC', sans-serif;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .popup-buttons button:hover {
+            background-color: peru;
+            transform: scale(1.05);
+        }
+
+        /* Button Active/Focus States */
+        .popup-buttons button:focus {
+            outline: none;
             background-color: #d4ac0d;
         }
 
-        /* Close Button */
-        .close-modal {
-            background-color: red;
-            color: #fff;
-            padding: 5px 10px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
+        /* Popup Restaurant Info */
+        #popup-restaurant-info {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            text-align: left;
         }
 
-         /* Popup Styles */
-    .popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 999;
-    }
+        /* Popup Content Typography */
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
 
-    .popup-content {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 30px;
-        text-align: center;
-        width: 400px;
-        position: relative;
-    }
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #777;
+            line-height: 1.5;
+        }
 
-    .popup-close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+        /* Improved Lists */
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
 
-    .popup-buttons {
-        margin-top: 20px;
-    }
+        ul li {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+        }
 
-    .popup-buttons button {
-        margin: 10px;
-        padding: 10px 20px;
-        font-size: 18px;
-        background-color: #222;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        .food-images {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-    .popup-buttons button:hover {
-        background-color: #f1c40f;
-    }
+        .food-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+
     </style>
 </head>
 
@@ -440,7 +465,7 @@
     };
 
     document.getElementById('view-foods-btn').onclick = function() {
-        fetchFoodsForRestaurant(restaurant.id); 
+        fetchFoodsForRestaurant(restaurant.id);
     };
 
     document.getElementById('view-facilities-btn').onclick = function() {
@@ -455,11 +480,12 @@
         function redirectToGallery(restaurantId) {
     // Store the selected restaurant ID in local storage
     localStorage.setItem('selectedRestaurantId', restaurantId);
+    localStorage.setItem('selectedRestaurantName', restaurant.name);
 
     // Redirect to gallery.html
     window.location.href = 'gallery.html';
 }
-    
+
 }
 
 function fetchOffersForRestaurant(restaurantId) {
@@ -559,15 +585,35 @@ function fetchFoodsForRestaurant(restaurantId) {
     });
 }
 
-// Function to display food items in the popup
+
+// Function to display food items grouped by category
 function displayFoods(foods) {
     const popupRestaurantInfo = document.getElementById('popup-restaurant-info');
     popupRestaurantInfo.innerHTML = '<h3>Food Items:</h3>'; // Clear previous content
 
     if (foods.length === 0) {
         popupRestaurantInfo.innerHTML += '<p>No food items available</p>';
-    } else {
-        foods.forEach(food => {
+        return;
+    }
+
+    // Group foods by category
+    const categorizedFoods = foods.reduce((categories, food) => {
+        const category = food.foodCategory?.name || 'Uncategorized'; // If category is missing, assign 'Uncategorized'
+        if (!categories[category]) {
+            categories[category] = [];
+        }
+        categories[category].push(food);
+        return categories;
+    }, {});
+
+    // Display each category with its food items
+    for (const category in categorizedFoods) {
+        const categoryTitle = document.createElement('h4');
+        categoryTitle.textContent = category;
+        categoryTitle.classList.add('category-title');
+        popupRestaurantInfo.appendChild(categoryTitle);
+
+        categorizedFoods[category].forEach(food => {
             const foodDiv = document.createElement('div');
             foodDiv.classList.add('food-item');
 
@@ -580,17 +626,42 @@ function displayFoods(foods) {
             foodDiv.appendChild(descriptionElement);
 
             const priceElement = document.createElement('p');
-            priceElement.textContent = `Price: ${food.price} $`;
+            priceElement.textContent = `Price: LKR ${food.price}`;
             foodDiv.appendChild(priceElement);
 
-            const vegetarianElement = document.createElement('p');
-            vegetarianElement.textContent = food.isVegetarian ? 'Vegetarian' : 'Non-Vegetarian';
-            foodDiv.appendChild(vegetarianElement);
+            // Check availability
+            if (!food.available) {
+                const availabilityElement = document.createElement('p');
+                availabilityElement.textContent = 'Not Available';
+                availabilityElement.style.color = 'red';
+                foodDiv.appendChild(availabilityElement);
+            }
+
+            // Add images if available
+            if (food.images && food.images.length > 0) {
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('food-images');
+
+                food.images.forEach(imageUrl => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+                    imgElement.alt = food.name;
+                    imgElement.classList.add('food-image');
+                    imageContainer.appendChild(imgElement);
+                });
+
+                foodDiv.appendChild(imageContainer);
+            } else {
+                const noImageElement = document.createElement('p');
+                noImageElement.textContent = 'No images available';
+                foodDiv.appendChild(noImageElement);
+            }
 
             popupRestaurantInfo.appendChild(foodDiv);
         });
     }
 }
+
 
 
 
@@ -670,6 +741,7 @@ document.getElementById('view-foods-btn').onclick = function() {
     // Initialize by fetching restaurants when the page loads
     fetchRestaurants();
 });
+
 
 </script>
 </body>

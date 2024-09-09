@@ -7,94 +7,191 @@
     <style>
         /* Basic styles for the gallery */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
         }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-top: 30px;
+            color: #444;
+            letter-spacing: 2px;
+        }
+
         .gallery-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
+            padding: 50px;
         }
+
         .gallery-item {
-            width: 200px;
-            height: 200px;
+            position: relative;
+            width: 400px; /* Increased width */
+            height: 300px;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+            transition: transform 0.4s ease-in-out;
         }
+
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            transition: background 0.4s ease-in-out;
+        }
+
+        .gallery-item:hover::before {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+
+
+        .gallery-item:hover {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Back button styles */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #444;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #666;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .gallery-item {
+                width: 300px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-item {
+                width: 250px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
 
-<h1>Restaurant Gallery</h1>
+<a href="ourrestaurants.html" class="back-button">Back</a>
+
+<h1 id="restaurant-name">Restaurant Gallery</h1>
+
 <div id="gallery-container" class="gallery-container">
     <!-- Gallery images will be displayed here -->
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the selected restaurant ID from local storage
-    const restaurantId = localStorage.getItem('selectedRestaurantId');
-const jwtToken = localStorage.getItem('jwtToken');
-console.log(restaurantId, jwtToken);  // Ensure these values are not null
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the selected restaurant ID and name from local storage
+        const restaurantId = localStorage.getItem('selectedRestaurantId');
+        const restaurantName = localStorage.getItem('selectedRestaurantName');
+        const jwtToken = localStorage.getItem('jwtToken');
+        console.log('Restaurant ID:', restaurantId);
+        console.log('Restaurant Name:', restaurantName);
+        console.log('JWT Token:', jwtToken);
+
+        // Update the page title with the restaurant's name
+        const restaurantNameElement = document.getElementById('restaurant-name');
+        if (restaurantName && restaurantNameElement) {
+            restaurantNameElement.textContent = restaurantName;
+        } else {
+            console.error('Restaurant name or element not found');
+        }
 
 
-    if (restaurantId) {
-        // Fetch the restaurant's gallery images based on the restaurantId
-        fetch(`http://localhost:5786/api/admin/gallery/restaurant/${restaurantId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Check if the 'images' property exists and contains data
-            if (data && data.images && data.images.length > 0) {
-                displayGallery(data.images);  // Pass the nested images array
-            } else {
-                console.error('No images found for this restaurant.');
-                document.getElementById('gallery-container').innerHTML = '<p>No images available for this restaurant.</p>';
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching gallery images:', error);
-        });
-    } else {
-        alert('No restaurant selected');
-    }
 
-    // Function to display gallery images
-    function displayGallery(images) {
-        const galleryContainer = document.getElementById('gallery-container');
-
-        if (images && images.length > 0) {
-            images.forEach(image => {
-                const galleryItem = document.createElement('div');
-                galleryItem.classList.add('gallery-item');
-
-                const imgElement = document.createElement('img');
-                imgElement.src = image.url;  // Use image.url from the array
-                imgElement.alt = 'Restaurant Image';
-
-                galleryItem.appendChild(imgElement);
-                galleryContainer.appendChild(galleryItem);
+        if (restaurantId) {
+            // Fetch the restaurant's gallery images based on the restaurantId
+            fetch(`http://localhost:5786/api/admin/gallery/restaurant/${restaurantId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Check if the 'images' property exists and contains data
+                if (data && data.images && data.images.length > 0) {
+                    displayGallery(data.images);  // Pass the nested images array
+                } else {
+                    console.error('No images found for this restaurant.');
+                    document.getElementById('gallery-container').innerHTML = '<p>No images available for this restaurant.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching gallery images:', error);
             });
         } else {
-            galleryContainer.innerHTML = '<p>No images available for this restaurant.</p>';
+            alert('No restaurant selected');
         }
-    }
 
-    
-});
+        // Function to display gallery images
+        function displayGallery(images) {
+            const galleryContainer = document.getElementById('gallery-container');
 
+            if (images && images.length > 0) {
+                images.forEach(image => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('gallery-item');
 
+                    const imgElement = document.createElement('img');
+                    imgElement.src = image.url;  // Use image.url from the array
+                    imgElement.alt = 'Restaurant Image';
+
+                    galleryItem.appendChild(imgElement);
+                    galleryContainer.appendChild(galleryItem);
+                });
+            } else {
+                galleryContainer.innerHTML = '<p>No images available for this restaurant.</p>';
+            }
+        }
+    });
 </script>
 
 </body>
