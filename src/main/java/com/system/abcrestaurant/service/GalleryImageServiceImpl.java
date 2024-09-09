@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GalleryImageServiceImpl implements GalleryImageService {
 
     @Autowired
     private GalleryImageRepository galleryImageRepository;
-
 
     @Override
     public GalleryImageResponse addImage(AddGalleryImageRequest request) {
@@ -67,5 +67,18 @@ public class GalleryImageServiceImpl implements GalleryImageService {
         return galleryImageRepository.findAll().stream()
                 .map(image -> new GalleryImageDTO(image.getId(), image.getUrl(), image.getRestaurantId()))
                 .toList();
+    }
+
+    @Override
+    public List<GalleryImageResponse> getImagesByRestaurantId(Long restaurantId) {
+        return galleryImageRepository.findByRestaurantId(restaurantId)
+                .stream()
+                .map(this::convertToGalleryImageResponse)
+                .collect(Collectors.toList());
+    }
+
+    // Move the convertToGalleryImageResponse method here
+    private GalleryImageResponse convertToGalleryImageResponse(GalleryImage galleryImage) {
+        return new GalleryImageResponse(galleryImage.getId(), galleryImage.getUrl(), galleryImage.getRestaurantId());
     }
 }

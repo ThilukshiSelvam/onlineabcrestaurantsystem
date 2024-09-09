@@ -40,5 +40,21 @@ public class FoodController {
             @PathVariable Long restaurantId,
             @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
-return null;}
+        return null;
+    }
+
+    @GetMapping("/restaurant/{restaurantId}/all")
+    public ResponseEntity<List<Food>> getAllFoodByRestaurantId(
+            @PathVariable Long restaurantId,
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        User user = userService.findUserByJwtToken(jwt);
+        List<Food> foods = foodService.getAllFoodByRestaurantId(restaurantId);
+
+        if (foods == null || foods.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(foods, HttpStatus.OK);
+    }
+
 }

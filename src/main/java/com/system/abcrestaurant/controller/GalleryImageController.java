@@ -60,6 +60,13 @@ public class GalleryImageController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<Map<String, Object>> getImagesByRestaurantId(@PathVariable Long restaurantId) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("images", galleryImageService.getImagesByRestaurantId(restaurantId));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(ConstraintViolationException ex) {
         Map<String, String> errors = ex.getConstraintViolations().stream()

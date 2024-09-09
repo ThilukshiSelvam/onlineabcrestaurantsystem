@@ -19,4 +19,6 @@ public interface FoodService {
     List<Food> searchFood(String keyword) throws Exception;
 
     List<Food> getRestaurantsFood(Long restaurantId, boolean vegetarian, boolean seasonal, boolean nonveg, String foodCategory) throws Exception;
+
+    List<Food> getAllFoodByRestaurantId(Long restaurantId);
 }

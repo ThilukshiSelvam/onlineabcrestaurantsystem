@@ -1,6 +1,7 @@
 package com.system.abcrestaurant.service;
 
 import com.system.abcrestaurant.dto.GalleryImageDTO;
+import com.system.abcrestaurant.model.GalleryImage;
 import com.system.abcrestaurant.request.AddGalleryImageRequest;
 import com.system.abcrestaurant.response.GalleryImageResponse;
 
@@ -17,4 +18,7 @@ public interface GalleryImageService {
     GalleryImageResponse getImage(Long id);
 
     List<GalleryImageDTO> getAllImages();
+
+    public List<GalleryImageResponse> getImagesByRestaurantId(Long restaurantId);
+
 }

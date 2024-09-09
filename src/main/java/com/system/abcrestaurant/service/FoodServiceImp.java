@@ -85,4 +85,9 @@ public class FoodServiceImp implements FoodService {
 
         return foods;
     }
+
+    @Override
+    public List<Food> getAllFoodByRestaurantId(Long restaurantId) {
+        return foodRepository.findByRestaurantId(restaurantId);
+    }
 }
