@@ -106,24 +106,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayImageDetails(image) {
+        console.log(image.imageUrl);  // Check if the correct imageUrl is being returned
+        
         const div = document.createElement('div');
         div.className = 'gallery-item';
         div.innerHTML = `
             <p>ID: ${image.id}</p>
-            <p>URL: ${image.url}</p>
+            <p>URL: ${image.imageUrl}</p>  <!-- Update this to image.imageUrl -->
             <p>Restaurant: ${image.restaurantId}</p>
-            <button onclick="openUpdatePopup(${image.id}, '${image.url}', ${image.restaurantId})">Update</button>
-            <button onclick="deleteImage(${image.id})">Delete</button>
+            <button class="update-btn" onclick="openUpdatePopup(${image.id}, '${image.imageUrl}', ${image.restaurantId})">Update</button>  <!-- Update this to image.imageUrl -->
+            <button class="delete-btn" onclick="deleteImage(${image.id})">Delete</button>
         `;
         galleryImagesContainer.appendChild(div);
     }
+    
 
-    window.openUpdatePopup = function(id, url, restaurantId) {
+    window.openUpdatePopup = function(id, imageUrl, restaurantId) {
         document.getElementById('update-image-id').value = id;
-        document.getElementById('update-image-url').value = url;
+        document.getElementById('update-image-url').value = imageUrl;  // Update this to imageUrl
         document.getElementById('update-restaurant-dropdown').value = restaurantId;
         updateImagePopup.style.display = 'flex';
     }
+    
 
     window.deleteImage = function(id) {
         fetch(`http://localhost:5786/api/admin/gallery/${id}`, {
@@ -136,10 +140,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             alert(data.message);
-            loadGalleryImages();  // Refresh gallery images
+            if (response.ok) {
+                loadGalleryImages();  // Refresh gallery images if successful
+            }
         })
         .catch(error => console.error('Error:', error));
     }
+    
 
     updateImageForm.addEventListener('submit', function(event) {
         event.preventDefault();

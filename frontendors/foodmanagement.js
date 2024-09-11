@@ -261,9 +261,20 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to handle food updates
 const handleUpdateFood = async (event) => {
     const foodId = event.target.dataset.id;
+    console.log("Update button clicked for food ID:", foodId);
+
+    const updateFoodForm = document.getElementById("updateFoodForm");
+    console.log(updateFoodForm); 
+
+   // Log to check if the form is found in the DOM
+
+    if (!updateFoodForm) {
+        console.error("Update form not found in the DOM.");
+        return; // Exit if the form is missing
+    }
 
     // Ensure the form and elements are correctly selected
-    const updateFoodForm = document.getElementById("updateFoodForm");
+ 
     const updateFoodName = document.getElementById("updateFoodName");
     const updateFoodDescription = document.getElementById("updateFoodDescription");
     const updateFoodPrice = document.getElementById("updateFoodPrice");

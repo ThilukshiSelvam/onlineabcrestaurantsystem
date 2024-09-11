@@ -119,11 +119,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const actionsCell = row.insertCell(3);
             const updateBtn = document.createElement('button');
+            updateBtn.className = 'updateBtn';
             updateBtn.textContent = 'Update';
             updateBtn.onclick = () => openUpdateForm(category);
             actionsCell.appendChild(updateBtn);
 
             const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'deleteBtn';
             deleteBtn.textContent = 'Delete';
             deleteBtn.onclick = () => deleteCategory(category.id);
             actionsCell.appendChild(deleteBtn);
@@ -134,41 +136,50 @@ document.addEventListener('DOMContentLoaded', function () {
         const modal = document.getElementById('updateCategoryModal');
         const updateCategoryForm = document.getElementById('updateCategoryForm');
         const updateRestaurantDropdown = document.getElementById('updateRestaurantId');
-
+    
         // Load available restaurants for the dropdown
         await categoryRestaurantDropdown(updateRestaurantDropdown);
-
+    
         // Populate the form with current category details
         document.getElementById('updateCategoryId').value = category.id;
         document.getElementById('updateCategoryName').value = category.name;
         updateRestaurantDropdown.value = category.restaurant_id; // Set the current restaurant ID
-
+    
         // Show the modal
         modal.style.display = 'block';
-
+    
         // Handle form submission
         updateCategoryForm.onsubmit = async function (e) {
             e.preventDefault();
-
+    
             const data = {
                 name: document.getElementById('updateCategoryName').value,
                 restaurant_id: updateRestaurantDropdown.value
             };
-
-            await fetch(`http://localhost:5786/api/admin/category/${category.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken}`
-                },
-                body: JSON.stringify(data)
-            });
-
-            modal.style.display = 'none';
-            loadAllCategories();
+    
+            try {
+                const response = await fetch(`http://localhost:5786/api/admin/category/${category.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                if (response.ok) {
+                    alert('Category updated successfully!');
+                    modal.style.display = 'none';
+                    loadAllCategories();
+                } else {
+                    alert('Failed to update category. Please try again.');
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+            }
         };
     }
-
+    
     async function categoryRestaurantDropdown(dropdown) {
         try {
             const response = await fetch('http://localhost:5786/api/admin/restaurants/getAllRestaurants', {
@@ -208,14 +219,29 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     async function deleteCategory(id) {
-        const response = await fetch(`http://localhost:5786/api/admin/category/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${jwtToken}`
+        try {
+            const response = await fetch(`http://localhost:5786/api/admin/category/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            });
+    
+            if (response.ok) {
+                // If the response is successful, show a success message
+                alert('Category deleted successfully!');
+            } else {
+                // If the response is not successful, show an error message
+                const result = await response.json();
+                alert(result.message || 'Failed to delete category. Please try again.');
             }
-        });
-        const result = await response.json();
-        alert(result.message);
-        loadAllCategories();
+    
+            // Reload categories to reflect changes
+            loadAllCategories();
+        } catch (error) {
+            // Catch and handle any network or other errors
+            alert('An error occurred. Please try again.');
+        }
     }
+    
 });

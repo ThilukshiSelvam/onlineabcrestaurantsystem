@@ -145,9 +145,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(() => {
             loadOffers(searchInput.value);
+            // Show success message
+            alert('Offer deleted successfully!');
         })
         .catch(error => console.error('Error deleting offer:', error));
     };
+    
 
     updateOfferForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -194,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: document.getElementById('restaurantId').value
             }
         };
-
+    
         fetch(`http://localhost:5786/api/admin/offers/restaurant/${offer.restaurant.id}`, {
             method: 'POST',
             headers: {
@@ -207,8 +210,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(() => {
             createOfferForm.reset();
             loadOffers(); // Optionally pass a specific restaurant ID if needed
+            
+            // Show success message as a prompt
+            alert('Offer created successfully!');
         })
-        .catch(error => console.error('Error creating offer:', error));
+        .catch(error => {
+            console.error('Error creating offer:', error);
+        });
     });
+    
 });
 

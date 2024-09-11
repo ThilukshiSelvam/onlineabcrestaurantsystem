@@ -76,10 +76,13 @@ function loadAllDineinTables() {
                 <td>${table.seats}</td>
                 <td>${table.available ? 'Yes' : 'No'}</td>
                 <td>
-                    <button onclick="opendineInUpdatePopup(${table.id})">Update</button>
-                    <button onclick="deleteDineinTable(${table.id})">Delete</button>
-                    <button onclick="toggleAvailability(${table.id}, ${!table.available})">${table.available ? 'Make Unavailable' : 'Make Available'}</button>
-                </td>
+    <button class="updateBtn" onclick="opendineInUpdatePopup(${table.id})">Update</button>
+    <button class="deleteBtn" onclick="deleteDineinTable(${table.id})">Delete</button>
+    <button class="toggleAvailabilityBtn" onclick="toggleAvailability(${table.id}, ${!table.available})">
+        ${table.available ? 'Make Unavailable' : 'Make Available'}
+    </button>
+</td>
+
             `;
             tableBody.appendChild(row);
         });

@@ -305,80 +305,89 @@ button:hover {
     </div>
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");
-        const username = document.getElementById("username");
-        const password = document.getElementById("password");
+    const form = document.querySelector("form");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-            let valid = true;
-            clearErrors();
+        let valid = true;
+        clearErrors();
 
-            if (username.value.trim() === "") {
-                showError(username, "Username is required.");
-                valid = false;
-            }
-
-            if (password.value.trim() === "") {
-                showError(password, "Password is required.");
-                valid = false;
-            }
-
-            if (valid) {
-                const loginData = {
-                    username: username.value.trim(),
-                    password: password.value.trim(),
-                };
-
-                fetch("http://localhost:5786/auth/signin", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(loginData),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.jwt) {
-                        // Store the JWT token in localStorage
-                        localStorage.setItem("jwtToken", data.jwt);
-
-                        let redirectUrl = "/dashboard";
-                        if (data.role === "ROLE_ADMIN") {
-                            redirectUrl = "admindashboard.html";
-                        } else if (data.role === "ROLE_STAFF") {
-                            redirectUrl = "staff-dashboard.html";
-                        } else if (data.role === "ROLE_CUSTOMER") {
-                            redirectUrl = "customerdashboard.html";
-                        }
-
-                        window.location.href = redirectUrl;
-                    } else {
-                        alert(data.message || "Login failed");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    alert("An error occurred. Please try again.");
-                });
-            }
-        });
-
-        function showError(input, message) {
-            const parent = input.parentElement;
-            const error = document.createElement("small");
-            error.classList.add("error");
-            error.style.color = "red";
-            error.textContent = message;
-            parent.appendChild(error);
+        if (username.value.trim() === "") {
+            showError(username, "Username is required.");
+            valid = false;
         }
 
-        function clearErrors() {
-            const errors = document.querySelectorAll("small.error");
-            errors.forEach((error) => error.remove());
+        if (password.value.trim() === "") {
+            showError(password, "Password is required.");
+            valid = false;
+        }
+
+        if (valid) {
+            const loginData = {
+                username: username.value.trim(),
+                password: password.value.trim(),
+            };
+
+            fetch("http://localhost:5786/auth/signin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(loginData),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.jwt) {
+                    // Store the JWT token in localStorage
+                    localStorage.setItem("jwtToken", data.jwt);
+
+                    // Check for the redirect query parameter in the URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirectUrl = urlParams.get('redirect');
+
+                    // Redirect based on the role and if there's a redirect URL
+                    if (data.role === "ROLE_ADMIN") {
+                        window.location.href = "admindashboard.html";
+                    } else if (data.role === "ROLE_STAFF") {
+                        window.location.href = "staff-dashboard.html";
+                    } else if (data.role === "ROLE_CUSTOMER") {
+                        // If redirect URL is present (from query form), redirect to userquery.html
+                        if (redirectUrl) {
+                            window.location.href = redirectUrl;
+                        } else {
+                            // Otherwise, redirect to customer dashboard
+                            window.location.href = "customerdashboard.html";
+                        }
+                    }
+                } else {
+                    alert(data.message || "Login failed");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            });
         }
     });
+
+    function showError(input, message) {
+        const parent = input.parentElement;
+        const error = document.createElement("small");
+        error.classList.add("error");
+        error.style.color = "red";
+        error.textContent = message;
+        parent.appendChild(error);
+    }
+
+    function clearErrors() {
+        const errors = document.querySelectorAll("small.error");
+        errors.forEach((error) => error.remove());
+    }
+});
+
     </script>
 </body>
 </html>

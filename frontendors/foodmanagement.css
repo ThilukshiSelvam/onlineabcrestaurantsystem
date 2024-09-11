@@ -1,3 +1,115 @@
+/* Food Management Section Styles */
+#foodManagementSection {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#foodManagementSection h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+#foodManagementSection form {
+    margin-bottom: 20px;
+}
+
+#foodManagementSection label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+#foodManagementSection input[type="text"],
+#foodManagementSection input[type="number"],
+#foodManagementSection select,
+#foodManagementSection textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#foodManagementSection button {
+    padding: 10px 15px;
+    background-color: #34495e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#foodManagementSection button:hover {
+    background-color: #555;
+}
+
+/* Food Table Styles */
+#foodTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#foodTable thead {
+    background-color: #f4f4f4;
+}
+
+#foodTable th,
+#foodTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#foodTable th {
+    color: #333;
+}
+
+#foodTable td .action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#foodTable td .action-buttons button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#foodTable td  .update-btn {
+    background-color: #34495e;
+    color: #fff;
+}
+
+#foodTable td  .update-btn:hover {
+    background-color: #555;
+}
+
+#foodTable td  .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+#foodTable td  .delete-btn:hover {
+    background-color: #c82333;
+}
+
+#foodTable td  .toggle-availability-btn {
+    background-color: #095026;
+    color: #fff;
+}
+
+#foodTable td  .toggle-availability-btn:hover {
+    background-color:seagreen;
+}
+
 /* Food Update Modal Styles */
 .food-update-modal {
     display: none;
@@ -34,13 +146,14 @@
     cursor: pointer;
 }
 
-#foodUpdateForm label {
+.food-update-modal-content label {
     display: block;
     margin: 10px 0 5px;
 }
 
-#foodUpdateForm input,
-#foodUpdateForm select {
+.food-update-modal-content input,
+.food-update-modal-content select,
+.food-update-modal-content textarea {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;

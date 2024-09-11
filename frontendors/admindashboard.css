@@ -98,16 +98,31 @@ h1 {
     margin-bottom: 40px;
 }
 
+.go-back-home {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #000; /* Customize the color as needed */
+    font-size: 16px;
+}
+
+
+.go-back-home:hover {
+    text-decoration: underline;
+}
+
+
 .profile {
     position: relative;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .profile img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid #ae3c33;
+    border: 2px solid #2c3e50;
 }
 
 .profile-dropdown {
@@ -136,14 +151,14 @@ h1 {
     padding: 10px;
     margin-top: 10px;
     border: none;
-    background-color: #ae3c33;
+    background-color: #2c3e50;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .profile-dropdown button:hover {
-    background-color: #a22c1c;
+    background-color: peru;
 }
 
 .form-group {
@@ -195,15 +210,40 @@ button.btn:hover {
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px 13px;
+    font-family: muli-bold;
 }
 
+/* Style for the button inside the form within the #staffManagement div */
+#staffManagement #staffForm .btn {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 13px 20px; /* Padding */
+    margin-bottom: 12px; /* Margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-family: muli-bold;
+    font-size: 14px; /* Font size */
+    text-align: left; /* Align text to the left */
+    transition: background-color 0.3s; /* Only transition background color */
+}
+
+/* Hover effect */
+#staffManagement #staffForm .btn:hover {
+    background-color: #555; /* Darker background on hover */
+}
+
+
+
+
 .edit-btn {
-    background-color: #4caf50;
+    background-color: #2c3e50;
 }
 
 .edit-btn:hover {
-    background-color: #45a049;
+    background-color
+    :#555;
 }
 
 .delete-btn {
@@ -213,6 +253,27 @@ button.btn:hover {
 .delete-btn:hover {
     background-color: #e53935;
 }
+
+/* Style for the button inside the form within the #editModal div */
+#editModal #editStaffForm .btn {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 13px 20px; /* Padding */
+    margin-bottom: 12px; /* Margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-family: muli-bold;
+    font-size: 13px; /* Font size */
+    text-align: left; /* Align text to the left */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+/* Hover effect */
+#editModal #editStaffForm .btn:hover {
+    background-color: #555; /* Darker background on hover */
+}
+
 
 /* Modal styles */
 .modal {
@@ -275,7 +336,7 @@ button.btn:hover {
 }
 
 #searchRestaurantBtn {
-    padding: 10px 20px;
+    padding: 12px 27px;
     background-color: #34495e; /* Button color */
     color: white;
     border: none;
@@ -283,6 +344,8 @@ button.btn:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 17px;
+    font-family: muli-bold;
+    margin-top: 21px;
 }
 
 #searchRestaurantBtn:hover {
@@ -317,7 +380,7 @@ td {
 
 /* Style for the buttons in the table */
 table#restaurantTable button {
-    background-color: #007bff; /* Default button color */
+    background-color: #34495e; /* Default button color */
     color: #fff; /* Text color */
     border: none; /* Remove default border */
     padding: 8px 12px; /* Padding */
@@ -326,35 +389,36 @@ table#restaurantTable button {
     border-radius: 4px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
     font-size: 14px; /* Font size */
+    font-family: muli-bold;
     transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
   }
-
+  
   /* Edit button */
   table#restaurantTable button.edit-button {
     background-color: #28a745; /* Green */
   }
-
+  
   /* Delete button */
   table#restaurantTable button.delete-button {
     background-color: #dc3545; /* Red */
   }
-
+  
   /* Toggle status button */
   table#restaurantTable button.toggle-status-button {
     background-color: #ffc107; /* Yellow */
   }
-
+  
   /* Hover effect */
   table#restaurantTable button:hover {
     background-color: #0056b3; /* Darker shade */
     transform: scale(1.05); /* Slight zoom effect */
   }
-
+  
   /* Active effect */
   table#restaurantTable button:active {
     background-color: #004494; /* Even darker shade */
   }
-
+  
 
 /* Edit Restaurant Popup Styles */
 #editRestaurantPopup {
@@ -497,91 +561,261 @@ table#restaurantTable button {
 
 /* Add your styles here */
 
+/* General styling for #categoryManagement */
 #categoryManagement {
     margin-top: 20px;
 }
 
-#categoryManagement form {
+/* Styling for the form within #categoryManagement */
+#categoryManagement #createCategoryForm {
     margin-bottom: 20px;
+    width: 600px;
 }
 
-#categoryTable {
+/* Styling for the Create button */
+#categoryManagement #createCategoryForm button[type="submit"] {
+    background-color: #34495e; /* Background color for Create button */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    margin: 5px; /* Margin between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    font-family: muli-bold;
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+#categoryManagement #createCategoryForm button[type="submit"]:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+/* Styling for the Cancel button */
+#categoryManagement #cancelCreateCategory {
+    background-color: #e74c3c; /* Background color for Cancel button (Red) */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    font-family: muli-bold;
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+#categoryManagement #cancelCreateCategory:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Styling for the Search Bar and Search Button container */
+/* Styling for the Search Bar and Search Button container */
+#categoryManagement #searchContainer {
+    margin-bottom: 20px; /* Space below search container */
+    display: flex; /* Flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+}
+
+#categoryManagement #searchRestaurantId {
+    padding: 8px; /* Padding for input */
+    border: 1px solid #ddd; /* Border for input */
+    border-radius: 4px; /* Rounded corners for input */
+    margin-right: 0; /* No space between input and button */
+    width: 600px; /* Width for search bar */
+}
+
+#categoryManagement #searchCategoriesBtn {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    margin-left: 10px; /* Space between input and button */
+    font-family: muli-bold;
+    width: 120px;
+    margin-bottom: 4px;
+}
+
+#categoryManagement #searchCategoriesBtn:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+
+
+/* Styling for inputs and selects within the form */
+#categoryManagement input, 
+#categoryManagement select {
+    margin-bottom: 10px;
+    display: block;
+    padding: 8px; /* Padding for better usability */
+    border: 1px solid #ddd; /* Border for inputs and selects */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Styling for the category table */
+#categoryManagement #categoryTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-#categoryTable th, #categoryTable td {
+#categoryManagement #categoryTable th, 
+#categoryManagement #categoryTable td {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#categoryTable th {
+#categoryManagement #categoryTable th {
     background-color: #f4f4f4;
 }
 
-button {
-    margin: 5px;
+/* Styling for Update button */
+#categoryManagement #categoryTable .updateBtn {
+    background-color: #34495e; /* Blue background color for Update button */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 12px 17px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 12px; /* Font size */
+    font-family: muli-bold;
+    transition: background-color 0.3s; /* Smooth transition for background color */
 }
 
-input, select {
-    margin-bottom: 10px;
-    display: block;
+#categoryManagement #categoryTable .updateBtn:hover {
+    background-color: #555; /* Darker blue on hover */
 }
+
+/* Styling for Delete button */
+#categoryManagement #categoryTable .deleteBtn {
+    background-color: #e74c3c; /* Red background color for Delete button */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    margin-left: 10px;
+    padding: 12px 17px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 12px; /* Font size */
+    font-family: muli-bold;
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+#categoryManagement #categoryTable .deleteBtn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
 
 
 
 
 /* Form and Table Styling */
+/* General Styling for #dineinTablesSection */
 #dineinTablesSection {
     margin-top: 20px;
 }
 
-form {
+/* Styling for the form within #dineinTablesSection */
+#dineinTablesSection #createDineinTableForm {
     margin-bottom: 20px;
+    width: 600px;
 }
 
-label {
-    margin-right: 10px;
+/* Styling for the Table Number input */
+#dineinTablesSection #tableNumber {
+    width: 600px; /* Set width */
+    padding: 8px; /* Padding for better usability */
+    border: 1px solid #ddd; /* Border for input */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 10px; /* Margin below the input */
 }
 
-input[type="text"],
-input[type="number"],
-select {
+
+/* Styling for input and select elements within the form */
+#dineinTablesSection input[type="text"],
+#dineinTablesSection input[type="number"],
+#dineinTablesSection select {
     margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-button[type="submit"] {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
+/* Styling for the Create button */
+#dineinTablesSection #createDineinTableForm button[type="submit"] {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    margin-left: 10px; /* Space between input and button */
+    font-family: muli-bold; /* Font style */
+    width: 120px; /* Button width */
+    margin-bottom: 17px; /* Margin below button */
 }
 
-button[type="submit"]:hover {
-    background-color: #218838;
+#dineinTablesSection #createDineinTableForm button[type="submit"]:hover {
+    background-color: #555; /* Darker background color on hover */
 }
 
-#dineinTablesTable {
+/* Styling for the Search Container */
+#dineinTablesSection #searchContainer {
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below search container */
+}
+
+/* Styling for the Search Input */
+#dineinTablesSection #searchTableInput {
+    width: 600px; /* Width of the search bar */
+    padding: 8px; /* Padding inside the input */
+    border: 1px solid #ddd; /* Border for the input */
+    border-radius: 4px; /* Rounded corners */
+    margin-right: 10px; /* Space between input and button */
+}
+
+/* Styling for the Search Button */
+#dineinTablesSection #searchTableBtn {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    margin-bottom: 4px;
+    font-family: muli-bold; /* Font style */
+}
+
+#dineinTablesSection #searchTableBtn:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+
+/* Styling for the Dine-in Tables Details Table */
+#dineinTablesSection #dineinTablesTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-#dineinTablesTable th,
-#dineinTablesTable td {
+#dineinTablesSection #dineinTablesTable th,
+#dineinTablesSection #dineinTablesTable td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
 
-#dineinTablesTable th {
+#dineinTablesSection #dineinTablesTable th {
     background-color: #f2f2f2;
 }
 
-/* Popup Form Styling */
+/* Styling for the Popup Form */
 #updateDineinTablePopup {
     position: fixed;
     top: 50%;
@@ -597,18 +831,70 @@ button[type="submit"]:hover {
     flex-direction: column;
 }
 
-#cancelUpdateBtn {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    cursor: pointer;
+/* Styling for the Cancel button in Popup */
+#updateDineinTablePopup #cancelUpdateBtn {
+    background-color: #dc3545; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-family: muli-bold; /* Font style */
 }
 
-#cancelUpdateBtn:hover {
-    background-color: #c82333;
+#updateDineinTablePopup #cancelUpdateBtn:hover {
+    background-color: #c82333; /* Darker background color on hover */
 }
+
+/* General styling for buttons within table cells */
+#dineinTablesSection #dineinTablesTable td button {
+    background-color: #34495e; /* Default background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-family: muli-bold; /* Font style */
+    margin-right: 5px; /* Space between buttons */
+}
+
+/* Hover effect for all buttons */
+#dineinTablesSection #dineinTablesTable td button:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+/* Specific styling for Update button */
+#dineinTablesSection #dineinTablesTable .updateBtn {
+    background-color: #34495e; /* Blue background for Update button */
+}
+
+#dineinTablesSection #dineinTablesTable .updateBtn:hover {
+    background-color: #555; /* Darker blue on hover */
+}
+
+/* Specific styling for Delete button */
+#dineinTablesSection #dineinTablesTable .deleteBtn {
+    background-color: #dc3545; /* Red background for Delete button */
+}
+
+#dineinTablesSection #dineinTablesTable .deleteBtn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Specific styling for Toggle Availability button */
+#dineinTablesSection #dineinTablesTable .toggleAvailabilityBtn {
+    background-color: #063812; /* Green background for Toggle Availability button */
+}
+
+#dineinTablesSection #dineinTablesTable .toggleAvailabilityBtn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+
 
 
 
@@ -619,46 +905,118 @@ button[type="submit"]:hover {
     display: none;
 }
 
+/* General Styling for #manageOffersSection */
 #manageOffersSection {
     margin: 20px 0;
 }
 
-#offerForm,
-#updateOfferForm {
+/* Styling for Create Offer Form */
+#manageOffersSection #createOfferForm {
     margin-bottom: 20px;
+    width: 600px; /* Set width for the form */
 }
 
-#offerForm label,
-#updateOfferForm label {
-    display: block;
-    margin-bottom: 5px;
+/* Styling for input, textarea, and select elements within the Create Offer Form */
+#manageOffersSection #offerForm input,
+#manageOffersSection #offerForm textarea,
+#manageOffersSection #offerForm select {
+    width: 100%; /* Full width */
+    padding: 8px; /* Padding for better usability */
+    margin-bottom: 10px; /* Margin below elements */
+    border: 1px solid #ddd; /* Border for input elements */
+    border-radius: 4px; /* Rounded corners */
 }
 
-#offerForm input,
-#offerForm textarea,
-#offerForm select,
-#updateOfferForm input,
-#updateOfferForm textarea,
-#updateOfferForm select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+/* Styling for buttons within the Create Offer Form */
+#manageOffersSection #offerForm button[type="submit"] {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-family: muli-bold; /* Font style */
+    width: 150px; /* Button width */
+    margin-right: 10px; /* Space between buttons */
+    margin-bottom: 17px; /* Margin below button */
 }
 
-#offerList {
+#manageOffersSection #offerForm button[type="submit"]:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+#manageOffersSection #cancelOfferButton {
+    background-color: #dc3545; /* Red background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-family: muli-bold; /* Font style */
+    width: 150px; /* Button width */
+    margin-left: 10px; /* Space between buttons */
+    margin-bottom: 17px; /* Margin below button */
+}
+
+#manageOffersSection #cancelOfferButton:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Styling for the Search Bar and Search Button container */
+#manageOffersSection #searchOffers {
+    margin-bottom: 20px; /* Space below search container */
+    display: flex; /* Flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+}
+
+#manageOffersSection #searchInput {
+    padding: 8px; /* Padding for input */
+    border: 1px solid #ddd; /* Border for input */
+    border-radius: 4px; /* Rounded corners for input */
+    margin-right: 10px; /* Space between input and button */
+    width: 600px; /* Reduced width for search bar */
+}
+
+#manageOffersSection #searchOffersButton {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-family: muli-bold; /* Font style */
+    width: 120px; /* Button width */
+}
+
+#manageOffersSection #searchOffersButton:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+/* Styling for the Offers Table */
+#manageOffersSection #offersTable table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
-#offerList th, #offerList td {
+#manageOffersSection #offersTable th,
+#manageOffersSection #offersTable td {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
 }
 
-#offerList th {
+#manageOffersSection #offersTable th {
     background-color: #f2f2f2;
 }
 
+/* Styling for the Update Offer Popup */
 #updateOfferPopup {
     position: fixed;
     top: 50%;
@@ -670,12 +1028,58 @@ button[type="submit"]:hover {
     z-index: 1000;
 }
 
+#updateOfferPopup form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for the Update Offer Button */
+.updateOfferButton {
+    background-color: #34495e; /* Background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    margin-left: 10px; /* Space between buttons */
+    font-family: muli-bold; /* Font style */
+    width: 120px; /* Button width */
+}
+
+.updateOfferButton:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+
+/* Styling for the Delete Offer Button */
+.deleteOfferButton {
+    background-color: #dc3545; /* Red background color */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-family: muli-bold; /* Font style */
+    width: 120px; /* Button width */
+    margin-left: 8px;
+}
+
+.deleteOfferButton:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+
+
 
 
 
 /* Facility Management Section */
 
-.facility-management-section {
+/* Facility Management Section Styles */
+#facilityManagementSection {
     margin-top: 20px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -683,95 +1087,111 @@ button[type="submit"]:hover {
     border-radius: 5px;
 }
 
-.facility-management-section h2 {
+#facilityManagementSection h3 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
     color: #333;
 }
 
-.facility-management-section .form-group {
+#facilityManagementSection .facility-form {
+    margin-bottom: 20px;
+}
+
+#facilityManagementSection .facility-form div {
     margin-bottom: 15px;
 }
 
-.facility-management-section label {
+#facilityManagementSection .facility-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
 }
 
-.facility-management-section input[type="text"],
-.facility-management-section select {
+#facilityManagementSection .facility-form input[type="text"],
+#facilityManagementSection .facility-form select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.facility-management-section button {
+#facilityManagementSection .facility-form button {
     padding: 10px 15px;
-    background-color: #28a745;
+    background-color: #34495e;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.facility-management-section button:hover {
-    background-color: #218838;
+#facilityManagementSection .facility-form button:hover {
+    background-color: #555;
 }
 
-.facility-list {
-    margin-top: 30px;
-}
-
-.facility-list table {
+/* Facility Table Styles */
+#facilityManagementSection .facility-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.facility-list th,
-.facility-list td {
+#facilityManagementSection .facility-table th,
+#facilityManagementSection .facility-table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-.facility-list th {
+#facilityManagementSection .facility-table th {
     background-color: #f4f4f4;
     color: #333;
+    font-weight: bold;
 }
 
-.facility-list td .action-buttons {
+/* Facility Table Action Buttons */
+#facilityManagementSection .facility-table td .action-buttons {
     display: flex;
     gap: 10px;
 }
 
-.facility-list td .action-buttons button {
+#facilityManagementSection .facility-table td  .update-btn {
     padding: 5px 10px;
+    background-color: #34495e; /* Yellow background for update button */
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: muli-bold;
 }
 
-.facility-list td .action-buttons .update-btn {
-    background-color: #ffc107;
+#facilityManagementSection .facility-table td  .update-btn:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+}
+
+#facilityManagementSection .facility-table td  .delete-btn {
+    padding: 5px 10px;
+    background-color: #dc3545; /* Red background for delete button */
     color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: muli-bold;
+    width: 70px;
+    margin-top: 5px;
 }
 
-.facility-list td .action-buttons .update-btn:hover {
-    background-color: #e0a800;
+#facilityManagementSection .facility-table td  .delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
 }
 
-.facility-list td .action-buttons .delete-btn {
-    background-color: #dc3545;
-    color: #fff;
-}
 
-.facility-list td .action-buttons .delete-btn:hover {
-    background-color: #c82333;
-}
 
 /* Popup Form */
 .popup {

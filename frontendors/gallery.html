@@ -126,72 +126,72 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the selected restaurant ID and name from local storage
-        const restaurantId = localStorage.getItem('selectedRestaurantId');
-        const restaurantName = localStorage.getItem('selectedRestaurantName');
-        const jwtToken = localStorage.getItem('jwtToken');
-        console.log('Restaurant ID:', restaurantId);
-        console.log('Restaurant Name:', restaurantName);
-        console.log('JWT Token:', jwtToken);
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the selected restaurant ID and name from local storage
+    const restaurantId = localStorage.getItem('selectedRestaurantId');
+    const restaurantName = localStorage.getItem('selectedRestaurantName');
+    const jwtToken = localStorage.getItem('jwtToken');
+    console.log('Restaurant ID:', restaurantId);
+    console.log('Restaurant Name:', restaurantName);
+    console.log('JWT Token:', jwtToken);
 
-        // Update the page title with the restaurant's name
-        const restaurantNameElement = document.getElementById('restaurant-name');
-        if (restaurantName && restaurantNameElement) {
-            restaurantNameElement.textContent = restaurantName;
-        } else {
-            console.error('Restaurant name or element not found');
-        }
+    // Update the page title with the restaurant's name
+    const restaurantNameElement = document.getElementById('restaurant-name');
+    if (restaurantName && restaurantNameElement) {
+        restaurantNameElement.textContent = restaurantName;
+    } else {
+        console.error('Restaurant name or element not found');
+    }
 
 
 
-        if (restaurantId) {
-            // Fetch the restaurant's gallery images based on the restaurantId
-            fetch(`http://localhost:5786/api/admin/gallery/restaurant/${restaurantId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Check if the 'images' property exists and contains data
-                if (data && data.images && data.images.length > 0) {
-                    displayGallery(data.images);  // Pass the nested images array
-                } else {
-                    console.error('No images found for this restaurant.');
-                    document.getElementById('gallery-container').innerHTML = '<p>No images available for this restaurant.</p>';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching gallery images:', error);
+    if (restaurantId) {
+        // Fetch the restaurant's gallery images based on the restaurantId
+        fetch(`http://localhost:5786/api/admin/gallery/restaurant/${restaurantId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // JWT Token for authorization
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the 'images' property exists and contains data
+            if (data && data.images && data.images.length > 0) {
+                displayGallery(data.images);  // Pass the nested images array
+            } else {
+                console.error('No images found for this restaurant.');
+                document.getElementById('gallery-container').innerHTML = '<p>No images available for this restaurant.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching gallery images:', error);
+        });
+    } else {
+        alert('No restaurant selected');
+    }
+
+    // Function to display gallery images
+    function displayGallery(images) {
+        const galleryContainer = document.getElementById('gallery-container');
+
+        if (images && images.length > 0) {
+            images.forEach(image => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+
+                const imgElement = document.createElement('img');
+                imgElement.src = image.url;  // Use image.url from the array
+                imgElement.alt = 'Restaurant Image';
+
+                galleryItem.appendChild(imgElement);
+                galleryContainer.appendChild(galleryItem);
             });
         } else {
-            alert('No restaurant selected');
+            galleryContainer.innerHTML = '<p>No images available for this restaurant.</p>';
         }
-
-        // Function to display gallery images
-        function displayGallery(images) {
-            const galleryContainer = document.getElementById('gallery-container');
-
-            if (images && images.length > 0) {
-                images.forEach(image => {
-                    const galleryItem = document.createElement('div');
-                    galleryItem.classList.add('gallery-item');
-
-                    const imgElement = document.createElement('img');
-                    imgElement.src = image.url;  // Use image.url from the array
-                    imgElement.alt = 'Restaurant Image';
-
-                    galleryItem.appendChild(imgElement);
-                    galleryContainer.appendChild(galleryItem);
-                });
-            } else {
-                galleryContainer.innerHTML = '<p>No images available for this restaurant.</p>';
-            }
-        }
-    });
+    }
+});
 </script>
 
 </body>
