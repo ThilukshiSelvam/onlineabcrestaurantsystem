@@ -6,6 +6,7 @@ import com.system.abcrestaurant.request.AddGalleryImageRequest;
 import com.system.abcrestaurant.response.GalleryImageResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GalleryImageService {
 
@@ -13,12 +14,17 @@ public interface GalleryImageService {
 
     GalleryImageResponse updateImage(Long id, AddGalleryImageRequest request);
 
-    GalleryImageResponse deleteImage(Long id);
+
 
     GalleryImageResponse getImage(Long id);
 
     List<GalleryImageDTO> getAllImages();
 
     public List<GalleryImageResponse> getImagesByRestaurantId(Long restaurantId);
+
+    public Optional<GalleryImage> findById(Long id);
+
+    public void delete(GalleryImage galleryImage);
+
 
 }

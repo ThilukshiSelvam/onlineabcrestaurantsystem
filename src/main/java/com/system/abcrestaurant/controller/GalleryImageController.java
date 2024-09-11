@@ -1,5 +1,6 @@
 package com.system.abcrestaurant.controller;
 
+import com.system.abcrestaurant.model.GalleryImage;
 import com.system.abcrestaurant.request.AddGalleryImageRequest;
 import com.system.abcrestaurant.response.GalleryImageResponse;
 import com.system.abcrestaurant.service.GalleryImageService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,11 +43,23 @@ public class GalleryImageController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteImage(@PathVariable Long id) {
-        galleryImageService.deleteImage(id);
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Image deleted successfully.");
+
+        // Fetch the image from the database
+        Optional<GalleryImage> galleryImageOptional = galleryImageService.findById(id);
+
+        // Check if the image exists
+        if (galleryImageOptional.isEmpty()) {
+            response.put("message", "Image not found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        // If the image exists, proceed with deletion
+        galleryImageService.delete(galleryImageOptional.get());
+        response.put("message", "Image deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<GalleryImageResponse> getImage(@PathVariable Long id) {

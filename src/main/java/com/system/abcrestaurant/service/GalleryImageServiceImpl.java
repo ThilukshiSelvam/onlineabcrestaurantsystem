@@ -41,16 +41,7 @@ public class GalleryImageServiceImpl implements GalleryImageService {
         }
     }
 
-    @Override
-    public GalleryImageResponse deleteImage(Long id) {
-        Optional<GalleryImage> optionalImage = galleryImageRepository.findById(id);
-        if (optionalImage.isPresent()) {
-            galleryImageRepository.deleteById(id);
-            return new GalleryImageResponse("Image deleted successfully.", null);
-        } else {
-            throw new RuntimeException("Image not found.");
-        }
-    }
+
 
     @Override
     public GalleryImageResponse getImage(Long id) {
@@ -75,6 +66,19 @@ public class GalleryImageServiceImpl implements GalleryImageService {
                 .stream()
                 .map(this::convertToGalleryImageResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<GalleryImage> findById(Long id) {
+        return galleryImageRepository.findById(id);
+    }
+
+
+
+    @Override
+    public void delete(GalleryImage galleryImage) {
+        galleryImageRepository.delete(galleryImage);
+
     }
 
     // Move the convertToGalleryImageResponse method here
